@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alchemist Record Table</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            table-layout: fixed; /* Ensures cells maintain relative sizes */
+            text-align: center;
+        }
+        td {
+            border: 1px solid #ddd;
+            width: 10%; /* Adjust width for uniform columns */
+            height: 80px; /* Set consistent height */
+            position: relative;
+        }
+        td img {
+            width: 100%;
+            height: auto;
+        }
+        td.right-cell {
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: bold;
+            background-color: #f9f9f9; /* Default background color */
+        }
+        td.right-cell.clicked {
+            color: red; /* Only changes text color */
+        }
+        td.merged {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        /* Header Row Background Colors */
+        td.merged:nth-child(1) { background-color: #e3c7e7ff; }
+        td.merged:nth-child(2) { background-color: #dff2c0ff; }
+        td.merged:nth-child(3) { background-color: #e2c6bcff; }
+        td.merged:nth-child(4) { background-color: #fff3bcff; }
+        td.merged:nth-child(5) { background-color: #c6d1eeff; }
+        td.merged:nth-child(6) { background-color: #ede3d3ff; }
+        td.merged:nth-child(7) { background-color: #fccbb6ff; }
+        td.merged:nth-child(8) { background-color: #d3d1d0ff; }
+    </style>
+</head>
+<body>
+    <table>
+        <!-- First Row: Header Row with Images -->
+        <tr>
+            <td class="merged" colspan="2"><img src="https://i.imgur.com/pSRon7t.png" alt="Header Image 1"></td>
+            <td class="merged" colspan="2"><img src="https://i.imgur.com/9sCHxIs.png" alt="Header Image 2"></td>
+            <td class="merged" colspan="2"><img src="https://i.imgur.com/FA7idcP.png" alt="Header Image 3"></td>
+            <td class="merged" colspan="2"><img src="https://i.imgur.com/l2DWi6x.png" alt="Header Image 4"></td>
+            <td class="merged" colspan="2"><img src="https://i.imgur.com/pQZphIw.png" alt="Header Image 5"></td>
+            <td class="merged" colspan="2"><img src="https://i.imgur.com/aSxUmcR.png" alt="Header Image 6"></td>
+            <td class="merged" colspan="2"><img src="https://i.imgur.com/DUcw3n6.png" alt="Header Image 7"></td>
+            <td class="merged" colspan="2"><img src="https://i.imgur.com/b0pZsdJ.png" alt="Header Image 8"></td>
+        </tr>
+
+        <!-- Subsequent Rows -->
+        <script>
+            const colors = [
+                "#e3c7e7ff",
+                "#dff2c0ff",
+                "#e2c6bcff",
+                "#fff3bcff",
+                "#c6d1eeff",
+                "#ede3d3ff",
+                "#fccbb6ff",
+                "#d3d1d0ff"
+            ];
+
+            const darkerColors = [
+                "#caa4cb",
+                "#c3d3a1",
+                "#c2a598",
+                "#dcd094",
+                "#a3aed4",
+                "#c3bab1",
+                "#e3a58c",
+                "#b2b0af"
+            ];
+
+            const images = [
+                "https://i.imgur.com/KwohS7U.png",
+                "https://i.imgur.com/KL7kBao.png",
+                "https://i.imgur.com/PsKEF6Q.png",
+                "https://i.imgur.com/yJ3SPyz.png",
+                "https://i.imgur.com/FtPq9lC.png",
+                "https://i.imgur.com/rNntorM.png",
+                "https://i.imgur.com/55eg8Ll.png",
+                "https://i.imgur.com/anbWhmM.png"
+            ];
+
+            const table = document.querySelector('table');
+
+            // Add 8 rows dynamically
+            for (let row = 0; row < 8; row++) {
+                const tr = document.createElement('tr');
+                for (let col = 0; col < 8; col++) {
+                    // Determine color based on row index
+                    const isShadowed = row === 2 || row === 3 || row === 6 || row === 7; // Shadow 3rd/4th & 7th/8th rows
+                    const bgColor = isShadowed ? darkerColors[col] : colors[col];
+
+                    // Left cell with an image
+                    const tdLeft = document.createElement('td');
+                    const img = document.createElement('img');
+                    img.src = images[col];
+                    tdLeft.appendChild(img);
+                    tdLeft.style.backgroundColor = bgColor; // Assign background color
+                    tr.appendChild(tdLeft);
+
+                    // Right cell for "X" toggle
+                    const tdRight = document.createElement('td');
+                    tdRight.className = 'right-cell';
+                    tdRight.setAttribute('onclick', 'toggleX(this)');
+                    tdRight.style.backgroundColor = bgColor; // Same background color for consistency
+                    tr.appendChild(tdRight);
+                }
+                table.appendChild(tr);
+            }
+        </script>
+
+    </table>
+
+    <script>
+        // Function to toggle "X" in the right cell
+        function toggleX(cell) {
+            if (cell.classList.contains('clicked')) {
+                cell.textContent = ''; // Remove the "X"
+                cell.classList.remove('clicked');
+            } else {
+                cell.textContent = 'X'; // Add the "X"
+                cell.classList.add('clicked');
+            }
+        }
+    </script>
+</body>
+</html>
